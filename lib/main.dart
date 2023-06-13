@@ -14,9 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BRASILEIRAO',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        visualDensity: VisualDensity.adaptivePlatformDensity
-      ),
+          primarySwatch: Colors.green,
+          visualDensity: VisualDensity.adaptivePlatformDensity),
       home: HomePage(),
     );
   }
