@@ -1,8 +1,11 @@
 import 'package:brasileirao/model/titulo.dart';
 import 'package:brasileirao/page/add_titulo_page.dart';
+import 'package:brasileirao/repository/times_repostiory.dart';
 import 'package:flutter/material.dart';
 import '../model/time.dart';
+import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class TimePage extends StatefulWidget {
   Time time;
   TimePage({super.key, required this.time});
@@ -14,20 +17,11 @@ class TimePage extends StatefulWidget {
 class _TimePageState extends State<TimePage> {
   tituloPage() {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) =>
-                AddTituloPage(time: widget.time, onSave: this.addTitulo)));
-  }
-
-  addTitulo(Titulo titulo) {
-    setState(() {
-      widget.time.titulos.add(titulo);
-    });
-    Navigator.pop(context);
-
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Salvo com sucecsso')));
+      context,
+      MaterialPageRoute(
+        builder: (_) => AddTituloPage(time: widget.time),
+      ),
+    );
   }
 
   @override
@@ -38,8 +32,10 @@ class _TimePageState extends State<TimePage> {
         appBar: AppBar(
           backgroundColor: widget.time.cor,
           title: Text(widget.time.nome),
-          actions: [IconButton(onPressed: tituloPage, icon: Icon(Icons.add))],
-          bottom: TabBar(
+          actions: [
+            IconButton(onPressed: tituloPage, icon: const Icon(Icons.add))
+          ],
+          bottom: const TabBar(
             tabs: [
               Tab(
                 icon: Icon(Icons.stacked_line_chart),
@@ -58,13 +54,13 @@ class _TimePageState extends State<TimePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 child: Image.network(
                     widget.time.brasao.replaceAll('40x40', '100x100')),
               ),
               Text(
                 'Pontos: ${widget.time.pontos}',
-                style: TextStyle(fontSize: 24),
+                style: const TextStyle(fontSize: 24),
               )
             ],
           ),
@@ -75,22 +71,23 @@ class _TimePageState extends State<TimePage> {
   }
 
   titulos() {
-    final quantidade = widget.time.titulos.length;
+    final time = Provider.of<TimesRepository>(context)
+        .times
+        .firstWhere((t) => t.nome == widget.time.nome);
+    final quantidade = time.titulos.length;
     return quantidade == 0
-        ? Container(
-            child: Center(
-              child: Text('Nenhum titulo  ainda'),
-            ),
+        ? const Center(
+            child: Text('Nenhum titulo  ainda'),
           )
         : ListView.separated(
             itemBuilder: (BuildContext context, int index) {
               ListTile(
-                leading: Icon(Icons.emoji_events),
-                title: Text(widget.time.titulos[index].campeonato),
-                trailing: Text(widget.time.titulos[index].ano),
+                leading: const Icon(Icons.emoji_events),
+                title: Text(time.titulos[index].campeonato),
+                trailing: Text(time.titulos[index].ano),
               );
             },
-            separatorBuilder: (_, __) => Divider(),
+            separatorBuilder: (_, __) => const Divider(),
             itemCount: quantidade);
   }
 }

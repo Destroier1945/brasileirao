@@ -1,9 +1,15 @@
+import 'package:brasileirao/repository/times_repostiory.dart';
+import 'package:provider/provider.dart';
+
 import 'package:flutter/material.dart';
 
 import 'page/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => TimesRepository(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
