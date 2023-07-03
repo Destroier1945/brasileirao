@@ -13,7 +13,7 @@ class HomeController {
 
   Future<void> loadTimes() async {
     try {
-      final List<Time> times = await timesRepository.times;
+      final List<Time> times = timesRepository.times;
       tabela = times;
     } catch (e) {
       print('Erro ao carregar os times : $e');

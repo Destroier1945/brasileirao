@@ -1,4 +1,5 @@
 import 'package:brasileirao/repository/times_repostiory.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'page/home_page.dart';
 void main() {
   runApp(ChangeNotifierProvider(
     create: (context) => TimesRepository(),
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'BRASILEIRAO',
       theme: ThemeData(
           primarySwatch: Colors.green,

@@ -9,6 +9,15 @@ class TimesRepository extends ChangeNotifier {
 
   UnmodifiableListView<Time> get times => UnmodifiableListView(_times);
 
+  void editTitulo(
+      {required Titulo titulo,
+      required String ano,
+      required String campeonato}) {
+    titulo.campeonato = campeonato;
+    titulo.ano = ano;
+    notifyListeners();
+  }
+
   void addTitulo({Time? time, Titulo? titulo}) {
     time!.titulos.add(titulo!);
     notifyListeners();

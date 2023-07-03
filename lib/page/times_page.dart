@@ -1,7 +1,9 @@
-import 'package:brasileirao/model/titulo.dart';
 import 'package:brasileirao/page/add_titulo_page.dart';
+import 'package:brasileirao/page/edit_titulo_page.dart';
 import 'package:brasileirao/repository/times_repostiory.dart';
+import 'package:brasileirao/widgets/widget_brasao.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../model/time.dart';
 import 'package:provider/provider.dart';
 
@@ -16,12 +18,7 @@ class TimePage extends StatefulWidget {
 
 class _TimePageState extends State<TimePage> {
   tituloPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => AddTituloPage(time: widget.time),
-      ),
-    );
+    Get.to(() => AddTituloPage(time: widget.time));
   }
 
   @override
@@ -55,8 +52,10 @@ class _TimePageState extends State<TimePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(24),
-                child: Image.network(
-                    widget.time.brasao.replaceAll('40x40', '100x100')),
+                child: Brasao(
+                  image: widget.time.brasao,
+                  width: 250,
+                ),
               ),
               Text(
                 'Pontos: ${widget.time.pontos}',
@@ -70,7 +69,7 @@ class _TimePageState extends State<TimePage> {
     );
   }
 
-  titulos() {
+  Widget titulos() {
     final time = Provider.of<TimesRepository>(context)
         .times
         .firstWhere((t) => t.nome == widget.time.nome);
@@ -81,10 +80,14 @@ class _TimePageState extends State<TimePage> {
           )
         : ListView.separated(
             itemBuilder: (BuildContext context, int index) {
-              ListTile(
+              return ListTile(
                 leading: const Icon(Icons.emoji_events),
                 title: Text(time.titulos[index].campeonato),
                 trailing: Text(time.titulos[index].ano),
+                onTap: () {
+                  Get.to(EditTituloPage(titulo: time.titulos[index]));
+                  Dialog.fullscreen();
+                },
               );
             },
             separatorBuilder: (_, __) => const Divider(),

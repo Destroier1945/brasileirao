@@ -2,6 +2,7 @@ import 'package:brasileirao/model/time.dart';
 import 'package:brasileirao/model/titulo.dart';
 import 'package:brasileirao/repository/times_repostiory.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -25,12 +26,9 @@ class _AddTituloPageState extends State<AddTituloPage> {
       titulo: Titulo(ano: _ano.text, campeonato: _campeonato.text),
     );
 
-    Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Salvo com sucesso'),
-      ),
-    );
+    Get.back();
+    Get.snackbar('Sucesso', 'Cadastrado com suceso!',
+        backgroundColor: widget.time.cor, snackPosition: SnackPosition.BOTTOM);
   }
 
   @override
