@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class EditTituloPage extends StatefulWidget {
-  Titulo titulo;
-  EditTituloPage({super.key, required this.titulo});
+  final Titulo titulo;
+  const EditTituloPage({super.key, required this.titulo});
 
   @override
   State<EditTituloPage> createState() => _EditTituloPageState();
@@ -35,19 +35,20 @@ class _EditTituloPageState extends State<EditTituloPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Titulo'),
+        title: const Text('Editar Titulo'),
         backgroundColor: Colors.grey[800],
-        actions: [IconButton(onPressed: editar, icon: Icon(Icons.check))],
+        actions: [IconButton(onPressed: editar, icon: const Icon(Icons.check))],
       ),
       body: Form(
+        key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.all(24),
+              padding: const EdgeInsets.all(24),
               child: TextFormField(
                 controller: _ano,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Ano',
                 ),
@@ -61,10 +62,10 @@ class _EditTituloPageState extends State<EditTituloPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(24),
+              padding: const EdgeInsets.all(24),
               child: TextFormField(
                 controller: _campeonato,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Campeonato'),
                 validator: (value) {
                   if (value!.isEmpty) {

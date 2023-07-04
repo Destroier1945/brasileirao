@@ -1,5 +1,6 @@
+import 'package:brasileirao/controllers/theme_controler.dart';
 import 'package:brasileirao/repository/times_repostiory.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'page/home_page.dart';
 
 void main() {
+  Get.lazyPut<ThemeController>(() => ThemeController());
+
   runApp(ChangeNotifierProvider(
     create: (context) => TimesRepository(),
     child: const MyApp(),
@@ -18,12 +21,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeController.to.loadThemeMode();
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'BRASILEIRAO',
       theme: ThemeData(
-          primarySwatch: Colors.green,
-          visualDensity: VisualDensity.adaptivePlatformDensity),
+          primarySwatch: Colors.deepPurple,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          brightness: Brightness.light),
+      darkTheme: ThemeData.dark(),
+      // themeMode: ThemeMode.system, // Defina o modo de tema para o sistema
       home: const HomePage(),
     );
   }

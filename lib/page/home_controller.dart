@@ -5,8 +5,6 @@ class HomeController {
   late TimesRepository timesRepository;
   List<Time> tabela = [];
 
-  // List<Time> get tabela => timesRepository.times;
-
   HomeController() {
     timesRepository = TimesRepository();
   }
@@ -16,7 +14,7 @@ class HomeController {
       final List<Time> times = timesRepository.times;
       tabela = times;
     } catch (e) {
-      print('Erro ao carregar os times : $e');
+      //print('Erro ao carregar os times : $e');
     }
   }
 }

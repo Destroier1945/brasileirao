@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Brasao extends StatelessWidget {
   final String image;
   final double width;
-  Brasao({super.key, required this.image, required this.width});
+  const Brasao({super.key, required this.image, required this.width});
 
   @override
   Widget build(BuildContext context) {

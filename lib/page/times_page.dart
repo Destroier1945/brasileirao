@@ -86,7 +86,7 @@ class _TimePageState extends State<TimePage> {
                 trailing: Text(time.titulos[index].ano),
                 onTap: () {
                   Get.to(EditTituloPage(titulo: time.titulos[index]));
-                  Dialog.fullscreen();
+                  const Dialog.fullscreen();
                 },
               );
             },
