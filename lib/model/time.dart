@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model/titulo.dart';
 
 class Time {
+  int id;
   String nome;
   String brasao;
   int pontos;
@@ -10,7 +11,8 @@ class Time {
   List<Titulo> titulos = [];
 
   Time(
-      {required this.nome,
+      {required this.id,
+      required this.nome,
       required this.brasao,
       required this.pontos,
       required this.cor});

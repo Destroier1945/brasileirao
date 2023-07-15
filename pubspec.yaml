@@ -40,6 +40,9 @@ dependencies:
   get:
   cached_network_image:
   shared_preferences:
+  hive:
+  path_provider:
+  sqflite:
   
 
 dev_dependencies:

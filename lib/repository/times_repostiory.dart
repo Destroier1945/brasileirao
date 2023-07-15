@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:brasileirao/database/db.dart';
 import 'package:brasileirao/model/time.dart';
 import 'package:flutter/material.dart';
 import '../model/titulo.dart';
@@ -23,9 +24,10 @@ class TimesRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  TimesRepository() {
-    _times.addAll([
+  static setupTimes() {
+    return [
       Time(
+        id: 1,
         nome: 'Flamengo',
         pontos: 0,
         brasao: 'https://logodetimes.com/times/flamengo/logo-flamengo-256.png',
@@ -33,6 +35,7 @@ class TimesRepository extends ChangeNotifier {
         //idAPI: 18,
       ),
       Time(
+        id: 2,
         nome: 'Internacional',
         pontos: 0,
         brasao:
@@ -41,6 +44,7 @@ class TimesRepository extends ChangeNotifier {
         //idAPI: 44,
       ),
       Time(
+        id: 3,
         nome: 'Atlético-MG',
         pontos: 0,
         brasao:
@@ -49,6 +53,7 @@ class TimesRepository extends ChangeNotifier {
         //idAPI: 30,
       ),
       Time(
+        id: 4,
         nome: 'São Paulo',
         pontos: 0,
         brasao:
@@ -57,6 +62,7 @@ class TimesRepository extends ChangeNotifier {
         //idAPI: 57,
       ),
       Time(
+        id: 5,
         nome: 'Fluminense',
         pontos: 0,
         brasao:
@@ -65,6 +71,7 @@ class TimesRepository extends ChangeNotifier {
         //idAPI: 26,
       ),
       Time(
+        id: 6,
         nome: 'Grêmio',
         pontos: 0,
         brasao: 'https://logodetimes.com/times/gremio/logo-gremio-256.png',
@@ -72,6 +79,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 45,
       ),
       Time(
+        id: 7,
         nome: 'Palmeiras',
         pontos: 0,
         brasao:
@@ -80,6 +88,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 56,
       ),
       Time(
+        id: 8,
         nome: 'Santos',
         pontos: 0,
         brasao: 'https://logodetimes.com/times/santos/logo-santos-256.png',
@@ -87,6 +96,7 @@ class TimesRepository extends ChangeNotifier {
         //idAPI: 63,
       ),
       Time(
+        id: 9,
         nome: 'Athletico-PR',
         pontos: 0,
         brasao:
@@ -95,6 +105,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 185,
       ),
       Time(
+        id: 10,
         nome: 'Corinthians',
         pontos: 0,
         brasao:
@@ -103,6 +114,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 65,
       ),
       Time(
+        id: 11,
         nome: 'Bragantino',
         pontos: 0,
         brasao:
@@ -111,6 +123,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 64,
       ),
       Time(
+        id: 12,
         nome: 'Ceará',
         pontos: 0,
         brasao: 'https://logodetimes.com/times/ceara/logo-ceara-256.png',
@@ -118,6 +131,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 105,
       ),
       Time(
+        id: 13,
         nome: 'Atlético-GO',
         pontos: 0,
         brasao:
@@ -126,6 +140,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 98,
       ),
       Time(
+        id: 14,
         nome: 'Sport',
         pontos: 0,
         brasao:
@@ -134,6 +149,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 79,
       ),
       Time(
+        id: 15,
         nome: 'Bahia',
         pontos: 0,
         brasao: 'https://logodetimes.com/times/bahia/logo-bahia-256.png',
@@ -141,6 +157,7 @@ class TimesRepository extends ChangeNotifier {
         //idAPI: 68,
       ),
       Time(
+        id: 16,
         nome: 'Fortaleza',
         pontos: 0,
         brasao:
@@ -149,6 +166,7 @@ class TimesRepository extends ChangeNotifier {
         //idAPI: 131,
       ),
       Time(
+        id: 17,
         nome: 'Vasco',
         pontos: 0,
         brasao:
@@ -157,6 +175,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 23,
       ),
       Time(
+        id: 18,
         nome: 'Goiás',
         pontos: 0,
         brasao:
@@ -165,6 +184,7 @@ class TimesRepository extends ChangeNotifier {
         // idAPI: 115,
       ),
       Time(
+        id: 19,
         nome: 'Coritiba',
         pontos: 0,
         brasao: 'https://logodetimes.com/times/coritiba/logo-coritiba-5.png',
@@ -172,12 +192,31 @@ class TimesRepository extends ChangeNotifier {
         //  idAPI: 84,
       ),
       Time(
+        id: 20,
         nome: 'Botafogo',
         pontos: 0,
         brasao: 'https://logodetimes.com/times/botafogo/logo-botafogo-256.png',
         cor: Colors.grey,
         //idAPI: 22,
       ),
-    ]);
+    ];
+  }
+
+  TimesRepository() {
+    initRepository();
+  }
+}
+
+initRepository() async {
+  var db = DB.get();
+  List times = await db.query('times');
+
+  for (var time in times) {
+    times.add(Time(
+        id: time['id'],
+        nome: time['nome'],
+        brasao: time['brasao'],
+        pontos: time['pontos'],
+        cor: Color(int.parse(time['cor']))));
   }
 }
