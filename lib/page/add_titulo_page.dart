@@ -23,7 +23,10 @@ class _AddTituloPageState extends State<AddTituloPage> {
   save() {
     Provider.of<TimesRepository>(context, listen: false).addTitulo(
       time: widget.time,
-      titulo: Titulo(ano: _ano.text, campeonato: _campeonato.text),
+      titulo: Titulo(
+        ano: _ano.text,
+        campeonato: _campeonato.text,
+      ),
     );
 
     Get.back();

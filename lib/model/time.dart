@@ -15,5 +15,6 @@ class Time {
       required this.nome,
       required this.brasao,
       required this.pontos,
-      required this.cor});
+      required this.cor,
+      required this.titulos});
 }

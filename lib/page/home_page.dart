@@ -2,6 +2,7 @@ import 'package:brasileirao/controllers/theme_controler.dart';
 import 'package:brasileirao/model/time.dart';
 import 'package:brasileirao/page/times_page.dart';
 import 'package:brasileirao/repository/times_repostiory.dart';
+import 'package:brasileirao/services/auth_service.dart';
 import 'package:brasileirao/widgets/widget_brasao.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,21 +25,30 @@ class _HomePageState extends State<HomePage> {
         title: const Text('BRASILEIRAO'),
         actions: [
           PopupMenuButton(
-              icon: Icon(Icons.more_vert),
+              icon: const Icon(Icons.more_vert),
               itemBuilder: (_) => [
                     PopupMenuItem(
                       child: ListTile(
                         leading: Obx(
                           () => controller.isDark.value
-                              ? Icon(Icons.brightness_7)
-                              : Icon(Icons.brightness_2),
+                              ? const Icon(Icons.brightness_7)
+                              : const Icon(Icons.brightness_2),
                         ),
                         title: Obx(() => controller.isDark.value
-                            ? Text('light')
-                            : Text('dark')),
+                            ? const Text('light')
+                            : const Text('dark')),
                         onTap: () => controller.changeTheme(),
                       ),
                     ),
+                    PopupMenuItem(
+                        child: ListTile(
+                      leading: Icon(Icons.exit_to_app),
+                      title: Text('Sair'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        AuthService.to.logout();
+                      },
+                    ))
                   ])
         ],
       ),

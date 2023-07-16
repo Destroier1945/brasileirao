@@ -43,6 +43,9 @@ dependencies:
   hive:
   path_provider:
   sqflite:
+  firebase_core:
+  firebase_auth:
+  cloud_firestore:
   
 
 dev_dependencies:
